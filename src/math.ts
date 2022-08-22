@@ -1,21 +1,23 @@
 import * as THREE from 'three';
 
 export namespace AppMath {
-    export function getRandomUnitVector(): THREE.Vector3 {
-        const vec = new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5);
-        return vec.normalize();
-    }
+    export function getRandomRayDirection(): THREE.Vector3 {
+        const lat = Math.acos(2.0 * Math.random() - 1.0) - (Math.PI / 2.0);
+        const long = Math.PI * 2.0 * Math.random();
 
-    export function intersectLinePlane(planeCentre: THREE.Vector3, planeNormal: THREE.Vector3, ray: THREE.Ray) {
-        if (AppMath.nearlyEqual(planeNormal.dot(ray.direction), 0)) {
-            return undefined;
-        }
-
-        const t = (planeNormal.dot(planeCentre) - planeNormal.dot(ray.origin)) / planeNormal.dot(ray.direction);
-        return ray.origin.clone().add(ray.direction.clone().multiplyScalar(t));
+        return new THREE.Vector3(
+            Math.cos(lat) * Math.cos(long),
+            Math.cos(lat) * Math.sin(long),
+            Math.sin(lat)
+        );
     }
 
     export function nearlyEqual(a: number, b: number, epsilon: number = 0.0001) {
         return Math.abs(a - b) < epsilon;
     }
+
+    export function reflectRay(incoming: THREE.Vector3, normal: THREE.Vector3): THREE.Vector3 {
+        return incoming.clone().sub(normal.clone().multiplyScalar(2 * normal.dot(incoming)));
+    }
+
 }
