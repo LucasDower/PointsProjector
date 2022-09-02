@@ -28,6 +28,30 @@ export namespace AppUtil {
             default:
                 return new THREE.Color(1.0, 1.0, 1.0);
         }
-    } 
+    }
+
+    /**
+     * Expects geometry to be convex
+     */
+    export function addToScene(geometry: THREE.BufferGeometry, scene: THREE.Scene, colliders: THREE.Mesh[], draw: boolean) {
+        // Add mesh to render
+        if (draw) {
+            const material = new THREE.MeshBasicMaterial({
+                color: 0x000000,
+                side: THREE.FrontSide
+            })
+            const mesh = new THREE.Mesh(geometry.clone().scale(0.99, 0.99, 0.99), material);
+            scene.add(mesh);
+        }
+        
+        // Add mesh to ray hit against
+        {
+            const material = new THREE.MeshBasicMaterial({
+                side: THREE.DoubleSide
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            colliders.push(mesh);
+        }
+    }
 }
 
