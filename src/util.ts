@@ -33,14 +33,26 @@ export namespace AppUtil {
     /**
      * Expects geometry to be convex
      */
-    export function addToScene(geometry: THREE.BufferGeometry, scene: THREE.Scene, colliders: THREE.Mesh[], draw: boolean) {
+    export function addToScene(
+        geometry: THREE.BufferGeometry,
+        scene: THREE.Scene,
+        colliders: THREE.Mesh[],
+        draw: boolean,
+        translate: THREE.Vector3
+    ) {
         // Add mesh to render
         if (draw) {
             const material = new THREE.MeshBasicMaterial({
                 color: 0x000000,
                 side: THREE.FrontSide
             })
-            const mesh = new THREE.Mesh(geometry.clone().scale(0.99, 0.99, 0.99), material);
+            const mesh = new THREE.Mesh(
+                geometry
+                    .clone()
+                    .scale(0.99, 0.99, 0.99)
+                    .translate(translate.x, translate.y, translate.z),
+                material
+            );
             scene.add(mesh);
         }
         
@@ -49,7 +61,10 @@ export namespace AppUtil {
             const material = new THREE.MeshBasicMaterial({
                 side: THREE.DoubleSide
             });
-            const mesh = new THREE.Mesh(geometry, material);
+            const mesh = new THREE.Mesh(
+                geometry.clone().translate(translate.x, translate.y, translate.z),
+                material
+                );
             colliders.push(mesh);
         }
     }

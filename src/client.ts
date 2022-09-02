@@ -39,16 +39,14 @@ function init() {
   }
 
   const cylinder = new THREE.CylinderGeometry(0.05, 0.05, 0.2);
-  cylinder.translate(0.1, -0.1, -0.3);
-  AppUtil.addToScene(cylinder, scene, hitMeshes, true);
+  AppUtil.addToScene(cylinder, scene, hitMeshes, true, new THREE.Vector3(0.1, -0.1, -0.3));
 
   const box = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-  box.translate(-0.2, -0.4, 0);
   box.rotateY(THREE.MathUtils.degToRad(30));
-  AppUtil.addToScene(box, scene, hitMeshes, true);
+  AppUtil.addToScene(box, scene, hitMeshes, true, new THREE.Vector3(-0.2, -0.4, 0.0));
 
   const walls = new THREE.BoxGeometry(1.0, 1.0, 1.0);
-  AppUtil.addToScene(walls, scene, hitMeshes, false);
+  AppUtil.addToScene(walls, scene, hitMeshes, false, new THREE.Vector3(0.0, 0.0, 0.0));
 
   addNewRays();
 
