@@ -2,9 +2,10 @@
 
 # PointProjector
 
+⚠️ **This is a joke repo. It's not physically accurate and literally makes no sense. If you're trying to learn about path tracing then look elsewhere. Do not do this.**
+
 Standard raytracers are boring. This simple project fires a bunch of white particles out of a light source. When a particle hits a wall, the wall absorbs some of its colour depending on the wall's colour. A dot is then drawn at this location and the particle reflects off.
 
-**Note:** If you're trying to learn about raytracers look elsewhere. Do not do this, this is just for fun.
 
 ## Usage
 
